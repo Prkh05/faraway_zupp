@@ -1,0 +1,46 @@
+# Python
+backend/venv/
+backend/.env
+backend/firewatch.db
+backend/uploads/
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+
+# Node / React Native / Expo
+node_modules/
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+.metro-health-check*
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+.pnpm-debug.log*
+.DS_Store
+*.pem
+.env*.local
+.env
+.env.production
+.env.development
+.env.local
+*.tsbuildinfo
+citizen-app/ios/
+citizen-app/android/
+
+# Next.js / Dashboard
+dashboard/.next/
+dashboard/out/
+dashboard/build/
+dashboard/.vercel/
+dashboard/next-env.d.ts
+
+# Misc / IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
