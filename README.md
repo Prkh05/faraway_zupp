@@ -187,26 +187,7 @@ Scan the QR code with the **Expo Go** app on your phone.
 
 ---
 
-## 🗺️ Google Maps Setup
 
-The dashboard's map view requires a Google Maps JavaScript API key.
-
-### Getting a Key
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/google/maps-apis)
-2. Create a project (or select existing)
-3. Enable the **Maps JavaScript API**
-4. Create an API key under **Credentials**
-5. Set it in `dashboard/.env.local`:
-   ```
-   NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_key_here
-   ```
-
-> **Free tier is sufficient**: Google provides $200/month in Maps API credits, more than enough for the demo.
-
-> **Graceful degradation**: If no API key is configured, the map view shows a friendly message. The table view works normally without it.
-
----
 
 ## 📁 Project Structure
 
@@ -261,67 +242,8 @@ FARAWAY/
 │   └── .env.example
 ```
 
----
 
-## 🌐 API Endpoints
 
-| Method | Path | Description |
-|---|---|---|
-| `POST` | `/report` | Submit fire report (image + GPS + description) |
-| `GET` | `/incident/{id}` | Get status + timestamps (citizen-facing, no severity) |
-| `GET` | `/incidents` | List all incidents by priority (dashboard-facing) |
-| `PATCH` | `/incident/{id}/status` | Update status (dashboard actions) |
-| `GET` | `/health` | Health check |
-
----
-
-## 🚢 Deployment
-
-### Backend → Render / Railway
-
-1. Push `backend/` to a Git repo
-2. Set environment variables (especially `MODEL_PATH`, `DATABASE_URL`)
-3. Build command: `pip install -r requirements.txt`
-4. Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-5. Upload `MobileNet_model.h5` or use a persistent storage volume
-
-### Dashboard → Vercel
-
-1. Push `dashboard/` to a Git repo
-2. Connect to Vercel, set `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`
-3. Framework preset: Next.js (auto-detected)
-
-### Database → Supabase (Production)
-
-1. Create a Supabase project
-2. Get the PostgreSQL connection string
-3. Set `DATABASE_URL=postgresql+asyncpg://...` in the backend env
-4. Add `asyncpg` to requirements.txt
-
----
-
-## 🎤 Demo Narrative Tips
-
-1. **Start with the problem**: Citizen-reported fires need rapid triage
-2. **Show the citizen flow**: Capture image → auto GPS → submit → get ID
-3. **Show the dashboard**: Real-time table with severity colors, sort by priority
-4. **Demo the model**: Show how different fire images get classified
-5. **Explain Critical**: "We extend the model's 4-class output with a confidence-based rule for Critical severity — here's the threshold, here's where to tune it"
-6. **Show the map**: Toggle to map view — severity-colored markers with InfoWindows
-7. **Status updates**: Accept → Dispatch → Resolve flow from dashboard, citizen sees progress
-8. **Architecture**: Clean separation — model frozen, inference isolated, database swappable
-
----
-
-## ⚠️ Known Limitations
-
-- **No authentication** — MVP scope, no user accounts
-- **Critical class** — Derived heuristic, not model-trained (documented above)
-- **Model accuracy** — ~91% overall; may misclassify edge cases
-- **GPS accuracy** — Depends on device hardware and environment
-- **SQLite** — Single-writer; swap to PostgreSQL for production
-
----
 
 ## 📄 License
 
